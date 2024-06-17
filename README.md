@@ -19,6 +19,14 @@ First, run
 ```sh 
 npm install
 ``` 
+
+Create a .env file to store your API keys:
+
+```env
+FIRST_PROMOTER_API_KEY=your_first_promoter_api_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+```
+
 and then run 
 ```sh 
 npm start
