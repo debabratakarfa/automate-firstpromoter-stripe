@@ -11,3 +11,30 @@ The solution: Automate this task. Whenever a new affiliate partner registers in 
 This process needs to run automatically and reliably. The relevant API documentation is available here:
 - [FirstPromoter API](https://docs.firstpromoter.com/#modify-existing-promoter)
 - [Stripe API](https://docs.stripe.com/api/coupons)
+
+# Running the Script
+Ensure you have the required packages installed, and then run the script using Node.js:
+
+First, run 
+```sh 
+npm install
+``` 
+and then run 
+```sh 
+npm start
+```
+
+You can send a POST request to http://localhost:3000/automate with the following JSON payload to trigger the task:
+
+```sh
+json
+{
+  "promoterId": "your_promoter_id",
+  "promoterData": {
+    "email": "new-email@example.com",
+    "custom_field": "new-value"
+  }
+}
+```
+
+This setup allows you to dynamically input promoterId and promoterData through the /automate route.
