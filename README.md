@@ -35,7 +35,6 @@ npm start
 You can send a POST request to http://localhost:3000/automate with the following JSON payload to trigger the task:
 
 ```sh
-json
 {
   "promoterId": "your_promoter_id",
   "promoterData": {
@@ -46,3 +45,16 @@ json
 ```
 
 This setup allows you to dynamically input promoterId and promoterData through the /automate route.
+
+# Test 
+
+### Explanation
+
+ - Dependencies: I use supertest for HTTP assertions, chai for general assertions, and nock to mock external API calls.
+
+### Running the Tests
+ - Run your tests using the command:
+
+```sh
+npm test
+```
