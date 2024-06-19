@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import request from 'supertest';
-import { expect } from 'chai';
+import expect from 'chai';
 import nock from 'nock';
 import dotenv from 'dotenv';
 
