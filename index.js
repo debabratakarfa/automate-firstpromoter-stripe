@@ -1,10 +1,12 @@
-require('dotenv').config();
-const express = require('express');
-const axios = require('axios');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const helmet = require('helmet');
-const cors = require('cors');
-const { body, validationResult } = require('express-validator');
+import 'dotenv/config';
+import express from 'express';
+import axios from 'axios';
+import stripePackage from 'stripe';
+import helmet from 'helmet';
+import cors from 'cors';
+import { body, validationResult } from 'express-validator';
+
+const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
 
 // FirstPromoter API base URL
 const FIRST_PROMOTER_API_BASE_URL = 'https://api.firstpromoter.com/v1';
@@ -45,9 +47,8 @@ async function createStripeCoupon(data) {
   }
 }
 
-
 // Function to automate the task
-async function automateTask(promoterId, promoterData) {
+export async function automateTask(promoterId, promoterData) {
   try {
     const modifiedPromoter = await modifyPromoter(promoterId, promoterData);
     console.log('Modified Promoter:', modifiedPromoter);
