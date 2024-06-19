@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "A Node.js application to automate interactions with FirstPromoter and Stripe APIs.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha --timeout 10000"
   },
   "repository": {
     "type": "git",
@@ -14,11 +16,17 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^1.3.4",
+    "chai": "^4.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
     "helmet": "^7.1.0",
     "stripe": "^11.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.4.0",
+    "nock": "^13.5.4",
+    "supertest": "^7.0.0"
   }
 }
