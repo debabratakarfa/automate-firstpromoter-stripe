@@ -43,4 +43,73 @@ describe('POST /automate', () => {
   it('should complete the task successfully', (done) => {
     const promoterId = 'test_promoter_id';
     const promoterData = {
-      email: '
+      email: 'test-email@example.com',
+      custom_field: 'test-value'
+    };
+
+    request(app)
+      .post('/automate')
+      .send({ promoterId, promoterData })
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.message).to.equal('Task completed successfully');
+        done();
+      });
+  });
+
+  it('should return an error if promoterId is missing', (done) => {
+    const promoterData = {
+      email: 'test-email@example.com',
+      custom_field: 'test-value'
+    };
+
+    request(app)
+      .post('/automate')
+      .send({ promoterData })
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.errors).to.exist;
+        done();
+      });
+  });
+
+  it('should return an error if promoterData is missing', (done) => {
+    const promoterId = 'test_promoter_id';
+
+    request(app)
+      .post('/automate')
+      .send({ promoterId })
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.errors).to.exist;
+        done();
+      });
+  });
+
+  it('should handle external API errors gracefully', (done) => {
+    nock.cleanAll();
+
+    nock(FIRST_PROMOTER_API_BASE_URL)
+      .put(/\/promoter\/.*/)
+      .replyWithError('External API error');
+
+    const promoterId = 'test_promoter_id';
+    const promoterData = {
+      email: 'test-email@example.com',
+      custom_field: 'test-value'
+    };
+
+    request(app)
+      .post('/automate')
+      .send({ promoterId, promoterData })
+      .expect(500)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.error).to.equal('An error occurred while processing the task');
+        done();
+      });
+  });
+});
